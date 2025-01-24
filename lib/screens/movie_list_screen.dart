@@ -15,9 +15,8 @@ class MovieListScreen extends StatelessWidget {
     
     
     return Scaffold(
-      backgroundColor: Colors.black,
       appBar: AppBar(
-        title: const Text('Netflix Clone'),
+        title: const Text('Movie'),
         backgroundColor: Colors.transparent,
         elevation: 0,
       ),
@@ -45,7 +44,7 @@ class MovieListScreen extends StatelessWidget {
                     itemCount: movies.length,
                     itemBuilder: (context, index) {
                       final movie = movies[index];
-                      return buildMovieItem(movie);
+                      return buildMovieItem(movie, context);
                     },
                   ),
                 ),

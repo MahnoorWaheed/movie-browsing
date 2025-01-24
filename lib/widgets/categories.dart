@@ -1,11 +1,17 @@
  // Widget to display individual movie item
   import 'package:flutter/material.dart';
 import 'package:movie_browsing/models/movie_model.dart';
+import 'package:movie_browsing/screens/movie_detail_screen.dart';
 
-Widget buildMovieItem(Movie movie) {
+Widget buildMovieItem(Movie movie, BuildContext context) {
     return GestureDetector(
       onTap: () {
-        // You can handle movie tap here, like navigating to details page
+        Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => MovieDetailscreen(id: movie.id),
+      ),
+    );
       },
       child: Column(
         children: [
@@ -22,7 +28,7 @@ Widget buildMovieItem(Movie movie) {
           const SizedBox(height: 8),
           Text(
             movie.title,
-            style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            style: const TextStyle( fontWeight: FontWeight.bold),
             overflow: TextOverflow.ellipsis,
             maxLines: 2,
           ),
