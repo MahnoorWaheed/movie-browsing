@@ -1,7 +1,10 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:movie_browsing/cubit/movie_cubit/movie_cubit.dart';
 import 'package:movie_browsing/firebase_options.dart';
+import 'package:movie_browsing/repository/movie_repository.dart';
+import 'package:movie_browsing/screens/movie_list_screen.dart';
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
@@ -10,9 +13,10 @@ void main() async{
 );
 
   runApp(
+      // MyApp(),
     MultiBlocProvider(
       providers: [
-        // BlocProvider(create: (_) => MovieCubit()),
+        BlocProvider(create: (_) => MovieCubit(movieRepository: MovieRepository())),
         // BlocProvider(create: (_) => FavoriteCubit()),
         // BlocProvider(create: (_) => ThemeCubit()),
       ],
@@ -32,55 +36,8 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
         useMaterial3: true,
       ),
-      home: const MyHomePage(title: 'Flutter Demo Home Page'),
+      home: MovieListScreen(),
     );
   }
 }
 
-class MyHomePage extends StatefulWidget {
-  const MyHomePage({super.key, required this.title});
-
-  final String title;
-
-  @override
-  State<MyHomePage> createState() => _MyHomePageState();
-}
-
-class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text(widget.title),
-      ),
-      body: Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: <Widget>[
-            const Text(
-              'You have pushed the button this many times:',
-            ),
-            Text(
-              '$_counter',
-              style: Theme.of(context).textTheme.headlineMedium,
-            ),
-          ],
-        ),
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: _incrementCounter,
-        tooltip: 'Increment',
-        child: const Icon(Icons.add),
-      ), // This trailing comma makes auto-formatting nicer for build methods.
-    );
-  }
-}
