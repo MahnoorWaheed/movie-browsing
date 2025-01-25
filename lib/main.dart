@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -33,7 +34,8 @@ void main() async {
                 FavoriteCubit(favoriteRepository: FavoriteRepository())),
         BlocProvider(create: (_) => ThemeCubit()),
       ],
-      child: const MyApp(),
+      child: DevicePreview(
+        builder: (context)=> MyApp()),
     ),
   );
 }

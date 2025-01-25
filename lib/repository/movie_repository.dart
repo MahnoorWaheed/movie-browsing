@@ -18,7 +18,9 @@ class MovieRepository {
     if (response.statusCode == 200) {
       final data = json.decode(response.body);
       final results = data['results'] as List; 
+      print("results: ${results[0]['title']}");
       final List<Movie> movies = results.map((movieData){
+        
         return Movie.fromJson(movieData);
       }).toList();
 

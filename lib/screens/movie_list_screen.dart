@@ -45,38 +45,41 @@ class MovieListScreen extends StatelessWidget {
                 ? state.movies
                 : (state as MovieLoading).movies;
 
-            return Column(
-              children: [
-                const SizedBox(height: 20),
-                Expanded(
-                  child: GridView.builder(
-                    controller: _scrollController,
-                    gridDelegate:
-                        const SliverGridDelegateWithFixedCrossAxisCount(
-                      crossAxisCount: 3,
-                      crossAxisSpacing: 8.0,
-                      mainAxisSpacing: 8.0,
-                      childAspectRatio: 0.5,
+            return Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Column(
+                children: [
+                  const SizedBox(height: 20),
+                  Expanded(
+                    child: GridView.builder(
+                      controller: _scrollController,
+                      gridDelegate:
+                          const SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 3,
+                        crossAxisSpacing: 8.0,
+                        mainAxisSpacing: 8.0,
+                        childAspectRatio: 0.5,
+                      ),
+                      itemCount: movies.length,
+                      itemBuilder: (context, index) {
+                        final movie = movies[index];
+                        return BlocBuilder<FavoriteCubit, FavoriteState>(
+                          builder: (context, state) {
+                            return MovieItem(movie: movie);
+                          },
+                        );
+                      },
                     ),
-                    itemCount: movies.length,
-                    itemBuilder: (context, index) {
-                      final movie = movies[index];
-                      return BlocBuilder<FavoriteCubit, FavoriteState>(
-                        builder: (context, state) {
-                          return MovieItem(movie: movie);
-                        },
-                      );
-                    },
                   ),
-                ),
-                if (state is MovieLoading &&
-                    movies
-                        .isNotEmpty) // Show a loader at the bottom during pagination
-                  const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Center(child: CircularProgressIndicator()),
-                  ),
-              ],
+                  if (state is MovieLoading &&
+                      movies
+                          .isNotEmpty) // Show a loader at the bottom during pagination
+                    const Padding(
+                      padding: EdgeInsets.symmetric(vertical: 20),
+                      child: Center(child: CircularProgressIndicator()),
+                    ),
+                ],
+              ),
             );
           } else if (state is MovieError) {
             return Center(

@@ -1,3 +1,4 @@
+import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_browsing/cubit/theme_cubit.dart';
@@ -12,6 +13,8 @@ class MyApp extends StatelessWidget {
       builder: (context, state) {
         return MaterialApp(
           title: 'Flutter Demo',
+          locale: DevicePreview.locale(context),
+          builder: DevicePreview.appBuilder,
           theme: ThemeData.light(), // Light theme
           darkTheme: ThemeData.dark(), // Dark theme
           themeMode: state == AppTheme.light ? ThemeMode.light : ThemeMode.dark,

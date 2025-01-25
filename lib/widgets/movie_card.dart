@@ -51,7 +51,7 @@ class MovieItem extends StatelessWidget {
             
             ),
             overflow: TextOverflow.ellipsis,
-            maxLines: 2,
+            // maxLines: 2,
           ),
         ],
       ),
