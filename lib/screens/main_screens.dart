@@ -10,25 +10,28 @@ class MainScreen extends StatelessWidget {
   int currentPage = 1;
 
   final List<Widget> _screens = [
-    MovieListScreen(), // Your Movie List Screen
-    FavoriteScreen(), // Favorite Screen
-    SettingScreen(), // Settings Screen
+    MovieListScreen(),
+    FavoriteScreen(),
+    SettingScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<BottomNavCubit, int>( // Use BottomNavCubit to listen for index changes
+      body: BlocBuilder<BottomNavCubit, int> //int datatype is used for index
+          (
         builder: (context, selectedIndex) {
-          return _screens[selectedIndex]; // Display the selected screen
+          return _screens[selectedIndex]; // it will display the selected screen
         },
       ),
       bottomNavigationBar: BlocBuilder<BottomNavCubit, int>(
         builder: (context, selectedIndex) {
           return BottomNavigationBar(
-            currentIndex: selectedIndex, // Use selectedIndex from Cubit
+            currentIndex: selectedIndex, // selectedIndex from Cubit
             onTap: (index) {
-              context.read<BottomNavCubit>().updateIndex(index); // Update the index in the Cubit
+              context
+                  .read<BottomNavCubit>()
+                  .updateIndex(index); // Update the index in the Cubit
             },
             items: const [
               BottomNavigationBarItem(

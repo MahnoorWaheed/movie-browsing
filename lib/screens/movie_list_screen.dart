@@ -3,31 +3,45 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_browsing/cubit/favorit_cubit/favorite_cubit.dart';
 import 'package:movie_browsing/cubit/favorit_cubit/favorite_state.dart';
 import 'package:movie_browsing/cubit/movie_cubit/movie_cubit.dart';
-import 'package:movie_browsing/widgets/movie_item.dart';
+import 'package:movie_browsing/widgets/app_bar.dart';
+import 'package:movie_browsing/widgets/movie_card.dart';
+import 'package:movie_browsing/widgets/search_bar.dart';
 
 class MovieListScreen extends StatelessWidget {
   final ScrollController _scrollController =
-      ScrollController(); // Controller for pagination
+      ScrollController(); 
   int currentPage = 1;
+  final TextEditingController _searchController = TextEditingController();
 
   MovieListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
     context.read<MovieCubit>().fetchMovies(currentPage); // Initial fetch
-
+    context.read<FavoriteCubit>().loadFavorites();
     return Scaffold(
-      appBar: AppBar(
-        title: const Text('Movie'),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+      appBar: CustomAppBar(
+        title: "Movies",
+         actions: [
+          // Use the reusable SearchBar widget
+          SizedBox(
+            width: 250,
+            child: SearchBarWidget(
+              controller: _searchController,
+              hintText: "Search Movies...",
+              onSearch: (query) {
+                context.read<MovieCubit>().searchMovies(query);
+              },
+            ),
+          ),
+        ],
       ),
       body: BlocBuilder<MovieCubit, MovieState>(
         builder: (context, state) {
-          if (state is MovieLoading && state.movies.isEmpty) {
-            return const Center(child: CircularProgressIndicator());
-          } else if (state is MovieLoaded || state is MovieLoading) {
-            final movies = state is MovieLoaded
+          if (state is MovieLoading && state.movies.isEmpty) {  //movie loading state
+            return Container();
+          } else if (state is MovieLoaded || state is MovieLoading) { 
+            final movies = state is MovieLoaded  // loaded movies save into the variable 
                 ? state.movies
                 : (state as MovieLoading).movies;
 
@@ -52,7 +66,6 @@ class MovieListScreen extends StatelessWidget {
                           return MovieItem(movie: movie);
                         },
                       );
-                      
                     },
                   ),
                 ),

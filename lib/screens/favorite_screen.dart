@@ -2,19 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_browsing/cubit/favorit_cubit/favorite_cubit.dart';
 import 'package:movie_browsing/cubit/favorit_cubit/favorite_state.dart';
-import 'package:movie_browsing/widgets/movie_item.dart';
+import 'package:movie_browsing/widgets/app_bar.dart';
+import 'package:movie_browsing/widgets/movie_card.dart';
+import 'package:movie_browsing/widgets/search_bar.dart';
 
 class FavoriteScreen extends StatelessWidget {
+  TextEditingController _searchController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     // Load favorites when the screen is first built
     context.read<FavoriteCubit>().loadFavorites();
 
     return Scaffold(
-      appBar: AppBar(
-        title: const Text("Favorites"),
-        backgroundColor: Colors.transparent,
-        elevation: 0,
+      appBar: CustomAppBar(
+        title: "Favorite",
+         actions: [
+          // Use the reusable SearchBar widget
+          SizedBox(
+            width: 250,
+            child: SearchBarWidget(
+              controller: _searchController,
+              hintText: "Search favorites...",
+              onSearch: (query) {
+                context.read<FavoriteCubit>().searchFavorites(query);
+              },
+            ),
+          ),
+        ],
       ),
       body: BlocBuilder<FavoriteCubit, FavoriteState>(
         builder: (context, state) {

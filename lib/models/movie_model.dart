@@ -17,7 +17,7 @@ class Movie {
     return {
       'id': id,
       'title': title,
-      'poster_path': 'https://image.tmdb.org/t/p/w500${posterPath}',
+      'poster_path': 'https://image.tmdb.org/t/p/w500${posterPath}', //pass link to firebase to display an image 
     };
   }
 }

@@ -12,13 +12,13 @@ class ThemeCubit extends Cubit<AppTheme> {
 //to save the theme
 
 Future<void> loadTheme()async {
-  SharedPreferences pref = await SharedPreferences.getInstance();
+  SharedPreferences pref = await SharedPreferences.getInstance(); 
   var theme = pref.getInt('theme')??0;
   emit(AppTheme.values[theme]);
 }
 
 Future<void> saveTheme(AppTheme theme) async {
-    final prefs = await SharedPreferences.getInstance();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setInt('theme', theme.index);
   }
 

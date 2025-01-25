@@ -24,13 +24,16 @@ class MovieDetailscreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  ClipRRect(
-                    borderRadius: BorderRadius.circular(10),
-                    child: Image.network(
-                     'https://image.tmdb.org/t/p/w500${movieDetails.posterPath}',
-                      width: double.infinity,
-                      height: 300,
-                      fit: BoxFit.contain,
+                  Hero(
+                    tag: id,
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(10),
+                      child: Image.network(
+                       'https://image.tmdb.org/t/p/w500${movieDetails.posterPath}',
+                        width: double.infinity,
+                        height: 300,
+                        fit: BoxFit.contain,
+                      ),
                     ),
                   ),
                   const SizedBox(height: 16),
@@ -53,9 +56,9 @@ class MovieDetailscreen extends StatelessWidget {
                     
                   ),
                   const SizedBox(height: 16),
-                  Text(
+                  const Text(
                     'Overview:',
-                    style: const TextStyle(
+                    style: TextStyle(
                         fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),

@@ -4,6 +4,7 @@ import 'package:movie_browsing/constants.dart/api_constants.dart';
 import 'package:movie_browsing/models/movie_detail_model.dart';
 import 'package:movie_browsing/models/movie_model.dart';
 import 'package:http/http.dart' as https;
+
 class MovieRepository {
   Future<List<Movie>> fetchMovies(int page) async {
     final response = await https.get(
@@ -26,13 +27,14 @@ class MovieRepository {
       throw Exception('Failed to load movies');
     }
   }
+
   // Fetch movie details using the movie ID
   Future<MovieDetails> fetchMovieDetails(int movieId) async {
     final response = await https.get(
       Uri.parse('${ApiConstants.baseUrl}/movie/$movieId?api_key=${ApiConstants.apiKey}&language=en-US'),
       headers: {
         'Authorization': 'Bearer ${ApiConstants.apiKey}',
-        'accept': 'application/json',
+        'accept': 'application/json'
       },
     );
 

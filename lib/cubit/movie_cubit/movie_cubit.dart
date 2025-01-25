@@ -7,6 +7,7 @@ part 'movie_state.dart';
 
 class MovieCubit extends Cubit<MovieState> {
   MovieRepository movieRepository = MovieRepository();
+   List<Movie> allMovies = [];
   MovieCubit({required this.movieRepository}) : super(MovieInitial());
 
 void fetchMovies(int page) async{
@@ -14,10 +15,20 @@ void fetchMovies(int page) async{
 try {
   emit(MovieLoading());
   final movies = await movieRepository.fetchMovies(page);
+   allMovies = movies;
   emit(MovieLoaded(movies: movies));
 } catch (e) {
   emit(MovieError(message: e.toString()));
 }
 }
+
+ void searchMovies(String query) {
+    if (allMovies.isNotEmpty) {
+      final filteredMovies = allMovies
+          .where((movie) => movie.title.toLowerCase().contains(query.toLowerCase()))
+          .toList();
+      emit(MovieLoaded(movies: filteredMovies)); // Emit the filtered list
+    }
+  }
 
 }

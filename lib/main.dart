@@ -7,13 +7,13 @@ import 'package:movie_browsing/cubit/movie_cubit/movie_cubit.dart';
 import 'package:movie_browsing/cubit/movie_detail_cubit/detail_cubit.dart';
 import 'package:movie_browsing/cubit/theme_cubit.dart';
 import 'package:movie_browsing/firebase_options.dart';
+import 'package:movie_browsing/my_app.dart';
 import 'package:movie_browsing/repository/favorite_repository.dart';
 import 'package:movie_browsing/repository/movie_repository.dart';
-import 'package:movie_browsing/screens/movie_list_screen.dart';
-import 'package:movie_browsing/screens/screens.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
@@ -28,30 +28,12 @@ void main() async {
             create: (_) =>
                 MovieDetailCubit(movieRepository: MovieRepository())),
         BlocProvider(create: (_) => BottomNavCubit()),
-        BlocProvider(create: (_) => FavoriteCubit(favoriteRepository: FavoriteRepository())),
+        BlocProvider(
+            create: (_) =>
+                FavoriteCubit(favoriteRepository: FavoriteRepository())),
         BlocProvider(create: (_) => ThemeCubit()),
       ],
-      child: MyApp(),
+      child: const MyApp(),
     ),
   );
-}
-
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    return BlocBuilder<ThemeCubit, AppTheme>(
-      builder: (context, state) {
-        return MaterialApp(
-          title: 'Flutter Demo',
-          theme: ThemeData.light(), // Light theme
-          darkTheme: ThemeData.dark(), // Dark theme
-          themeMode: state == AppTheme.light ? ThemeMode.light : ThemeMode.dark,
-          debugShowCheckedModeBanner: false,
-          home: MainScreen(),
-        );
-      },
-    );
-  }
 }
