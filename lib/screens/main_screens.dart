@@ -7,8 +7,9 @@ import 'package:movie_browsing/screens/setting_screen.dart';
 
 class MainScreen extends StatelessWidget {
   MainScreen({super.key});
-  int currentPage = 1;
-
+  int currentPage = 1;  
+  
+  //List<Widget> _screen displaying the list of screens.
   final List<Widget> _screens = [
     MovieListScreen(),
     FavoriteScreen(),
@@ -18,7 +19,7 @@ class MainScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: BlocBuilder<BottomNavCubit, int> //int datatype is used for index
+      body: BlocBuilder<BottomNavCubit, int> //int is a datatype is used for index
           (
         builder: (context, selectedIndex) {
           return _screens[selectedIndex]; // it will display the selected screen
@@ -27,6 +28,7 @@ class MainScreen extends StatelessWidget {
       bottomNavigationBar: BlocBuilder<BottomNavCubit, int>(
         builder: (context, selectedIndex) {
           return BottomNavigationBar(
+           
             currentIndex: selectedIndex, // selectedIndex from Cubit
             onTap: (index) {
               context

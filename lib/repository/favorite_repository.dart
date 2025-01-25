@@ -27,7 +27,6 @@ class FavoriteRepository {
 
   Future<List<Movie>> fetchFavMovies()async{
     var snapshot = await firebaseFirestore.collection(collectionName).get();
-    print("fetched movies are: ${snapshot.docs.first}");
     return snapshot.docs.map((doc)=> Movie.fromJson(doc.data())).toList(); 
   }
 }

@@ -13,6 +13,7 @@ class MovieLoaded extends MovieState {
    MovieLoaded({required this.movies});
 }
 
+class MovieEmpty extends MovieState{}
 class MovieError extends MovieState {
   final String message;
    MovieError({required this.message});

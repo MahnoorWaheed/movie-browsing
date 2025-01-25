@@ -28,6 +28,12 @@ try {
           .where((movie) => movie.title.toLowerCase().contains(query.toLowerCase()))
           .toList();
       emit(MovieLoaded(movies: filteredMovies)); // Emit the filtered list
+
+      if (filteredMovies.isEmpty) {
+      emit(MovieEmpty()); // Correctly emit the MovieEmpty state
+    } else {
+      emit(MovieLoaded(movies: filteredMovies)); // Emit the filtered movies
+    }
     }
   }
 

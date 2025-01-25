@@ -15,8 +15,7 @@ class FavoriteButton extends StatelessWidget {
       builder: (context, state) {
         if (state is FavoriteLoaded) {
           final isFavorite = state.favorites.any((fav) => fav.id == movie.id);
-          return 
-          IconButton(
+          return IconButton(
             icon: Icon(
               isFavorite ? Icons.favorite : Icons.favorite_border,
               color: isFavorite ? Colors.red : Colors.white,
@@ -26,7 +25,7 @@ class FavoriteButton extends StatelessWidget {
             },
           );
         }
-        return const SizedBox(); 
+        return const SizedBox(); // Return an empty widget if the state is not loaded
       },
     );
   }
