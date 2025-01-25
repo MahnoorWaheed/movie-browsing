@@ -37,7 +37,7 @@ class MovieDetailscreen extends StatelessWidget {
                   Text(
                     movieDetails.title,
                     style: const TextStyle(
-                      color: Colors.white,
+                      
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
@@ -45,30 +45,29 @@ class MovieDetailscreen extends StatelessWidget {
                   const SizedBox(height: 8),
                   Text(
                     'Release Date: ${movieDetails.releaseDate}',
-                    style: const TextStyle(color: Colors.white70),
+                    
                   ),
                   const SizedBox(height: 8),
                   Text(
                     'Rating: ${movieDetails.voteAverage}',
-                    style: const TextStyle(color: Colors.white70),
+                    
                   ),
                   const SizedBox(height: 16),
                   Text(
                     'Overview:',
                     style: const TextStyle(
-                        color: Colors.white, fontWeight: FontWeight.bold),
+                        fontWeight: FontWeight.bold),
                   ),
                   const SizedBox(height: 8),
                   Text(
                     movieDetails.overview,
-                    style: const TextStyle(color: Colors.white70),
                   ),
                 ],
               ),
             ),
           );
           } else if (state is MovieDetailError) {
-            return Center(child: Text('Error: ${state.message}', style: const TextStyle(color: Colors.white)));
+            return Center(child: Text('Error: ${state.message}'));
           } else {
             return Container();
           }

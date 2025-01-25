@@ -2,10 +2,12 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:movie_browsing/cubit/bottom_nav_cubit.dart';
+import 'package:movie_browsing/cubit/favorit_cubit/favorite_cubit.dart';
 import 'package:movie_browsing/cubit/movie_cubit/movie_cubit.dart';
 import 'package:movie_browsing/cubit/movie_detail_cubit/detail_cubit.dart';
 import 'package:movie_browsing/cubit/theme_cubit.dart';
 import 'package:movie_browsing/firebase_options.dart';
+import 'package:movie_browsing/repository/favorite_repository.dart';
 import 'package:movie_browsing/repository/movie_repository.dart';
 import 'package:movie_browsing/screens/movie_list_screen.dart';
 import 'package:movie_browsing/screens/screens.dart';
@@ -26,7 +28,7 @@ void main() async {
             create: (_) =>
                 MovieDetailCubit(movieRepository: MovieRepository())),
         BlocProvider(create: (_) => BottomNavCubit()),
-        // BlocProvider(create: (_) => FavoriteCubit()),
+        BlocProvider(create: (_) => FavoriteCubit(favoriteRepository: FavoriteRepository())),
         BlocProvider(create: (_) => ThemeCubit()),
       ],
       child: MyApp(),
@@ -47,7 +49,6 @@ class MyApp extends StatelessWidget {
           darkTheme: ThemeData.dark(), // Dark theme
           themeMode: state == AppTheme.light ? ThemeMode.light : ThemeMode.dark,
           debugShowCheckedModeBanner: false,
-
           home: MainScreen(),
         );
       },
