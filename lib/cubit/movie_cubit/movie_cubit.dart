@@ -27,10 +27,11 @@ try {
       final filteredMovies = allMovies
           .where((movie) => movie.title.toLowerCase().contains(query.toLowerCase()))
           .toList();
+          print("filteredMovies in search ${filteredMovies.map((movie) => movie.title).toList()}");
       emit(MovieLoaded(movies: filteredMovies)); // Emit the filtered list
 
       if (filteredMovies.isEmpty) {
-      emit(MovieEmpty()); // Correctly emit the MovieEmpty state
+      emit(MovieEmpty()); //emit the MovieEmpty state
     } else {
       emit(MovieLoaded(movies: filteredMovies)); // Emit the filtered movies
     }
