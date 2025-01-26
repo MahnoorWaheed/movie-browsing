@@ -43,11 +43,12 @@ class FavoriteScreen extends StatelessWidget {
             }
 
             return GridView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 10),
               gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 3,
-                crossAxisSpacing: 8.0,
-                mainAxisSpacing: 8.0,
-                childAspectRatio: 0.5,
+                 crossAxisCount: 3,
+                        crossAxisSpacing: 4.0,
+                        mainAxisSpacing: 0.0,
+                        childAspectRatio: 0.5,
               ),
               itemCount: favorites.length,
               itemBuilder: (context, index) {

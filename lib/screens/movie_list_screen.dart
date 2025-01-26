@@ -42,14 +42,15 @@ class MovieListScreen extends StatelessWidget {
         ],
       ),
       body: BlocBuilder<MovieCubit, MovieState>(
-        builder: (context, state) { // state is an obj of class MovieState 
-          if (state is MovieLoading && state.movies.isEmpty) {      
-            return Center(child: CircularProgressIndicator());               
+        builder: (context, state) {
+          // state is an obj of class MovieState
+          if (state is MovieLoading && state.movies.isEmpty) {
+            return Center(child: CircularProgressIndicator());
           } else if (state is MovieLoaded || state is MovieLoading) {
-            final movies =
-                state is MovieLoaded // loaded movies save into the variable movie when state is Loaded
-                    ? state.movies
-                    : (state as MovieLoading).movies; 
+            final movies = state
+                    is MovieLoaded // loaded movies save into the variable movie when state is Loaded
+                ? state.movies
+                : (state as MovieLoading).movies;
 
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -69,11 +70,8 @@ class MovieListScreen extends StatelessWidget {
                       itemCount: movies.length,
                       itemBuilder: (context, index) {
                         final movie = movies[index];
-                        return BlocBuilder<FavoriteCubit, FavoriteState>(
-                          builder: (context, state) {
-                            return MovieItem(movie: movie);
-                          },
-                        );
+
+                        return MovieItem(movie: movie);
                       },
                     ),
                   ),
@@ -87,20 +85,19 @@ class MovieListScreen extends StatelessWidget {
                 ],
               ),
             );
-          } 
-          else if (state is MovieEmpty) {
-      debugPrint("State is MovieEmpty"); // Debugging
-      return const Center(
-        child: Text(
-          "No results found for your search",
-          style: TextStyle( fontSize: 16),
-        ),
-      );
-    }
-          else if (state is MovieError) {
+          } else if (state is MovieEmpty) {
+            debugPrint("State is MovieEmpty"); // Debugging
+            return const Center(
+              child: Text(
+                "No results found for your search",
+                style: TextStyle(fontSize: 16),
+              ),
+            );
+          } else if (state is MovieError) {
             return Center(
-                child: Text('Error: ${state.message}',
-                    ));
+                child: Text(
+              'Error: ${state.message}',
+            ));
           } else {
             return Container();
           }
