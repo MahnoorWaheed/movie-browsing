@@ -23,10 +23,11 @@ samples, guidance on mobile development, and a full API reference. -->
         flutter run
 
 4. Testing Functionalities:
-        Initial Movie Fetch: Once the app starts, it should automatically fetch the first page of movies from the API.
+
+        i. Initial Movie Fetch: Once the app starts, it should automatically fetch the first page of movies from the API.
             •	The movies will be displayed in a grid format.
             •	You should see a loading spinner until the movies are loaded.
-        Error Handling:
+        ii. Error Handling:
             •	If there is an issue fetching the movies (e.g., network failure), an error message should be displayed.
 
         Testing the Search Functionality:
