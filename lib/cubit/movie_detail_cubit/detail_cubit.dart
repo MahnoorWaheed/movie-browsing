@@ -6,6 +6,8 @@ class MovieDetailCubit extends Cubit<MovieDetailState> {
   MovieRepository movieRepository = MovieRepository();
   MovieDetailCubit({required this.movieRepository}) : super(MovieDetailInitial());
 
+
+//fetch movie detail from repo base on movie id
 void fetchMovieDetail(int id ) async{
 
   try {

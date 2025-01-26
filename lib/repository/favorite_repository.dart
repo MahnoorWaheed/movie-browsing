@@ -8,7 +8,9 @@ class FavoriteRepository {
   String collectionName = "favorite";
   
   
-
+  //add fav movie to firebase 
+  // in app the authentication is not implemented so i've saved fav movies globally so thats why it will be display to all users.
+  
   Future<void> addFavMovie(Movie movie) async {
   // Simply store the movie's poster path (image URL) in Firestore
   await firebaseFirestore
@@ -17,6 +19,7 @@ class FavoriteRepository {
       .set(movie.toMap());
 }
 
+//remove Fav movie from collection 
 
   Future<void> removeFavMovie(int movieId) async {
     await firebaseFirestore
@@ -24,6 +27,10 @@ class FavoriteRepository {
         .doc(movieId.toString())
         .delete();
   }
+
+  //fetching all fav movies from firebase 
+  //snapshot is an object of class QuerySnapshot that fetch data of Map<String, dynamic>
+  //so here snapshot is used to map all movies from firebase collection through fromJson function in Movie Model
 
   Future<List<Movie>> fetchFavMovies()async{
     var snapshot = await firebaseFirestore.collection(collectionName).get();

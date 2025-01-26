@@ -6,6 +6,8 @@ import 'package:movie_browsing/models/movie_model.dart';
 import 'package:http/http.dart' as https;
 
 class MovieRepository {
+
+  //fetching movies from API 
   Future<List<Movie>> fetchMovies(int page) async {
     final response = await https.get(
       Uri.parse('${ApiConstants.baseUrl}/discover/movie?api_key=${ApiConstants.apiKey}&page=$page'),
@@ -16,14 +18,16 @@ class MovieRepository {
     );
 
     if (response.statusCode == 200) {
-      final data = json.decode(response.body);
-      final results = data['results'] as List; 
+      final data = json.decode(response.body); //decode response body into json
+      final results = data['results'] as List; //save data as a list
       print("results: ${results[0]['title']}");
+
+      //finally map the data into the model class.
       final List<Movie> movies = results.map((movieData){
         
         return Movie.fromJson(movieData);
       }).toList();
-
+      
       return movies;
     } else {
       throw Exception('Failed to load movies');

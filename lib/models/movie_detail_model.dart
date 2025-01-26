@@ -1,4 +1,4 @@
-// lib/models/movie_details_model.dart
+
 class MovieDetails {
   final int id;
   final String title;

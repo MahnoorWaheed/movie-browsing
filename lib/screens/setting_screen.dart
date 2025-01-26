@@ -17,8 +17,8 @@ class SettingScreen extends StatelessWidget {
           children: [
             ListTile(
               title: const Text('Dark Mode'),
-              trailing: Switch(
-                value: context.read<ThemeCubit>().state == AppTheme.dark,
+              trailing: Switch(  //toggle
+                value: context.read<ThemeCubit>().state == AppTheme.dark, 
                 onChanged: (value) {
                   // Toggle theme when switch is changed
                   context.read<ThemeCubit>().toggleTheme();

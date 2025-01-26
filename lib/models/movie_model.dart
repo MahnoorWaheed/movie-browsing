@@ -17,7 +17,9 @@ class Movie {
     return {
       'id': id,
       'title': title,
-      'poster_path': 'https://image.tmdb.org/t/p/w500${posterPath}', //pass link to firebase to display an image 
+      'poster_path': 'https://image.tmdb.org/t/p/w500${posterPath}', /* passing link with the extension in field to display an image because 
+                                                                        in firebase only the path with jpg extension was passing, 
+                                                                        which was not displaying image on screen.  */
     };
   }
 }

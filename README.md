@@ -43,6 +43,7 @@ samples, guidance on mobile development, and a full API reference. -->
                 •	If no movies are found, you should see a message indicating that no results were found.
 
             Testing Favorites:
+            Note: In this app the authentication is not implemented so I’ve saved all favorite movies globally for every app user in the favorite collection.
             i.  Loading Favorites:
                 •	On app startup, the app should load any previously favorited movies.
             ii. Mark a Movie as Favorite:

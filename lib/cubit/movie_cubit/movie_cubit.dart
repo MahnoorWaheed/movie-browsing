@@ -10,8 +10,10 @@ class MovieCubit extends Cubit<MovieState> {
    List<Movie> allMovies = [];
   MovieCubit({required this.movieRepository}) : super(MovieInitial());
 
-void fetchMovies(int page) async{
 
+//fetch movies from repo
+
+void fetchMovies(int page) async{
 try {
   emit(MovieLoading());
   final movies = await movieRepository.fetchMovies(page);
@@ -22,12 +24,13 @@ try {
 }
 }
 
+//search in all movie list
  void searchMovies(String query) {
     if (allMovies.isNotEmpty) {
       final filteredMovies = allMovies
           .where((movie) => movie.title.toLowerCase().contains(query.toLowerCase()))
           .toList();
-          print("filteredMovies in search ${filteredMovies.map((movie) => movie.title).toList()}");
+         // print("filteredMovies in search ${filteredMovies.map((movie) => movie.title).toList()}");
       emit(MovieLoaded(movies: filteredMovies)); // Emit the filtered list
 
       if (filteredMovies.isEmpty) {
