@@ -55,7 +55,17 @@ class FavoriteScreen extends StatelessWidget {
                 return MovieItem(movie: movie);  // Display favorite movie
               },
             );
-          } else if (state is FavoriteError) {
+          } 
+           else if (state is FavoriteEmpty) {
+      debugPrint("State is FavoriteEmpty"); // Debugging
+      return const Center(
+        child: Text(
+          "No results found for your search",
+          style: TextStyle( fontSize: 16),
+        ),
+      );
+    }
+          else if (state is FavoriteError) {
             return Center(child: Text(state.message, style: const TextStyle(color: Colors.red)));
           } else {
             return Container();
