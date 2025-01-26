@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:infinite_scroll_pagination/infinite_scroll_pagination.dart';
 import 'package:movie_browsing/cubit/favorit_cubit/favorite_cubit.dart';
 import 'package:movie_browsing/cubit/favorit_cubit/favorite_state.dart';
 import 'package:movie_browsing/cubit/movie_cubit/movie_cubit.dart';
+import 'package:movie_browsing/models/movie_model.dart';
 import 'package:movie_browsing/widgets/app_bar.dart';
 import 'package:movie_browsing/widgets/movie_card.dart';
 import 'package:movie_browsing/widgets/search_bar.dart';
@@ -11,7 +13,8 @@ class MovieListScreen extends StatelessWidget {
   final ScrollController _scrollController = ScrollController();
   int currentPage = 1; //used to fetch movies of initial page
   final TextEditingController _searchController = TextEditingController();
-
+ final PagingController<int, Movie> _pagingController =
+      PagingController(firstPageKey: 1);
   MovieListScreen({super.key});
 
   @override
@@ -20,6 +23,9 @@ class MovieListScreen extends StatelessWidget {
         .read<MovieCubit>()
         .fetchMovies(currentPage); // Initial fetch of movies
     context.read<FavoriteCubit>().loadFavorites(); //to initially load favorites
+    _pagingController.addPageRequestListener((pageKey) {
+      context.read<MovieCubit>().fetchMovies(pageKey);
+    });
     return Scaffold(
       appBar: CustomAppBar(
         title: "Movies",
@@ -42,15 +48,14 @@ class MovieListScreen extends StatelessWidget {
         ],
       ),
       body: BlocBuilder<MovieCubit, MovieState>(
-        builder: (context, state) {
-          // state is an obj of class MovieState
-          if (state is MovieLoading && state.movies.isEmpty) {
-            return Center(child: CircularProgressIndicator());
+        builder: (context, state) { // state is an obj of class MovieState 
+          if (state is MovieLoading && state.movies.isEmpty) {      
+            return Center(child: CircularProgressIndicator());               
           } else if (state is MovieLoaded || state is MovieLoading) {
-            final movies = state
-                    is MovieLoaded // loaded movies save into the variable movie when state is Loaded
-                ? state.movies
-                : (state as MovieLoading).movies;
+            final movies =
+                state is MovieLoaded // loaded movies save into the variable movie when state is Loaded
+                    ? state.movies
+                    : (state as MovieLoading).movies; 
 
             return Padding(
               padding: const EdgeInsets.all(8.0),
@@ -70,8 +75,9 @@ class MovieListScreen extends StatelessWidget {
                       itemCount: movies.length,
                       itemBuilder: (context, index) {
                         final movie = movies[index];
-
-                        return MovieItem(movie: movie);
+                        
+                            return MovieItem(movie: movie);
+                         
                       },
                     ),
                   ),
@@ -85,19 +91,20 @@ class MovieListScreen extends StatelessWidget {
                 ],
               ),
             );
-          } else if (state is MovieEmpty) {
-            debugPrint("State is MovieEmpty"); // Debugging
-            return const Center(
-              child: Text(
-                "No results found for your search",
-                style: TextStyle(fontSize: 16),
-              ),
-            );
-          } else if (state is MovieError) {
+          } 
+          else if (state is MovieEmpty) {
+      debugPrint("State is MovieEmpty"); // Debugging
+      return const Center(
+        child: Text(
+          "No results found for your search",
+          style: TextStyle( fontSize: 16),
+        ),
+      );
+    }
+          else if (state is MovieError) {
             return Center(
-                child: Text(
-              'Error: ${state.message}',
-            ));
+                child: Text('Error: ${state.message}',
+                    ));
           } else {
             return Container();
           }
