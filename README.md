@@ -29,7 +29,11 @@ samples, guidance on mobile development, and a full API reference. -->
             •	You should see a loading spinner until the movies are loaded.
         ii. Error Handling:
             •	If there is an issue fetching the movies (e.g., network failure), an error message should be displayed.
-
+        Testing Movie details Functionality:
+            •	Navigate to the list of movies.
+            •	Select a movie to open its detail page.
+        Expected Result:
+            •	Details of selected movie (title, image, description, release date, overview, ratings) are displayed correctly.
         Testing the Search Functionality:
             i. Search Bar:
                 •	At the top of the screen, there is a search bar.

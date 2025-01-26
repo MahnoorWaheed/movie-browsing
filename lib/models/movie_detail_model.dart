@@ -14,6 +14,7 @@ class MovieDetails {
     required this.releaseDate,
     required this.posterPath,
     required this.voteAverage,
+    
   });
 
   factory MovieDetails.fromJson(Map<String, dynamic> json) {
@@ -24,6 +25,7 @@ class MovieDetails {
       releaseDate: json['release_date'],
       posterPath: json['poster_path'],
       voteAverage: json['vote_average'].toDouble(),
+      
     );
   }
 }
